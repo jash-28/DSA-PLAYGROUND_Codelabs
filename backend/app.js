@@ -8,10 +8,12 @@ const path = require("path");
 
 const app = express();
 
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
+
 // ================= MIDDLEWARE =================
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: allowedOrigin,
     credentials: true,
   })
 );
@@ -44,7 +46,7 @@ app.use("/api/modules", require("./routes/moduleRoutes"));
 app.use("/api/questions", require("./routes/questionRoutes"));
 app.use("/api/submissions", require("./routes/submissionRoutes"));
 app.use("/api/messages", require("./routes/messageRoutes"));
-app.use("/api/users", require("./routes/userRoutes")); // ✅ ADD THIS
+app.use("/api/users", require("./routes/userRoutes"));
 
 // ================= SSR ROUTES =================
 app.get("/login", (req, res) => res.render("login"));
